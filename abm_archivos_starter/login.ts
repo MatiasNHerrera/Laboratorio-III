@@ -7,58 +7,7 @@ if(localStorage.getItem("Empleados") == null)
 
 function RecuperarDatos() : void
 {
-    let nombre : string;
-    let legajo : number;
-
-    nombre = (<HTMLInputElement>document.getElementById("nombreTxt")).value; 
-    legajo = parseInt((<HTMLInputElement>document.getElementById("LegajoTxt")).value);
-
-    var emp = localStorage.getItem("Empleados");
-
-    var array = Array();
-    var auxArray = Array();
-    var auxArray2 = Array();
-
-    if(emp != null)
-    {
-        array = emp.split(",");
-    }
-
-    array.forEach(element => {
-        auxArray = element.split("-");
-        auxArray.forEach(element => {
-            auxArray2.push(element);
-        });
-    });
-
-
-    let validacion : Boolean = false;
-
-    for(var i = 0; i < auxArray2.length; i++)
-    {
-        if(nombre == auxArray2[i] && legajo == auxArray2[i+1])
-        {
-            validacion = true;   
-            break;
-        }
-        else
-        {
-            validacion = false;
-        }
-
-        i++;
-    }
-    
-
-    if(validacion)
-    {
-        alert("Encontro persona");
-    }
-    else
-    {
-        alert("No encontro");
-    }
-    
+   
 }
 
 function AgregarPersonas() : void
