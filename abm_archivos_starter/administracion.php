@@ -4,7 +4,6 @@ require_once ("clases/archivo.php");
 require_once ("verificacion.php");
 
 $queHago = isset($_POST['queHago']) ? $_POST['queHago'] : NULL;
-var_dump($_POST);
 switch($queHago){
 
 	case "mostrarGrilla":
@@ -26,6 +25,10 @@ switch($queHago){
 							<td>".$prod->GetCodBarra()."</td>
 							<td>".$prod->GetNombre()."</td>
 							<td><img src='archivos/".$prod->GetPathFoto()."' width='100px' height='100px'/></td>
+							<td>
+							<input type='button' class='MiBotonUTN' value='Modificar'/>
+							<input type='button' class='MiBotonUTN' value='Eliminar'/>
+							</td>
 						</tr>";
 //AGREGAR UNA COLUMNA CON DOS 'BUTTONS' (ELIMINAR Y MODIFICAR)						
 		}

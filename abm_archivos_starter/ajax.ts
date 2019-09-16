@@ -22,6 +22,7 @@ function Validar() : boolean
     var http = new XMLHttpRequest();
     var retorno : boolean = false;
     var respuesta = http.responseText;
+
     if(respuesta = "ok")
     {
         retorno = true;

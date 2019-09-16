@@ -62,7 +62,7 @@ class Producto
 		$resultado = FALSE;
 		
 		//ABRO EL ARCHIVO
-		$ar = fopen("archivos/productos.txt", "a");
+		$ar = fopen("../archivos/productos.txt", "a");
 		
 		//ESCRIBO EN EL ARCHIVO
 		$cant = fwrite($ar, $obj->ToString());
@@ -101,15 +101,33 @@ class Producto
 	}
 	public static function Modificar($obj)
 	{
-		$resultado = TRUE;
+		$resultado = FALSE;
 		
-		//OBTENGO TODOS LOS PRODUCTOS
-		//RECORRO Y BUSCO LA IMAGEN ANTERIOR. REEMPLAZO POR EL OBJ. MODIFICADO
-		//BORRO LA IMAGEN ANTERIOR
+		$array = Producto::TraerTodosLosProductos();
 		
-		//ABRO EL ARCHIVO
-		//ESCRIBO EN EL ARCHIVO
-		//CIERRO EL ARCHIVO
+		for($i = 0; $i < count($array); $i++)
+		{
+			if($array[$i]->GetCodBarra() == $obj->GetCodBarra() && $array[$i]->GetNombre() == $obj->GetNombre())
+			{
+				unset($array[$i]);
+				unlink("archivos/". $array[2]);
+			}
+		}
+		
+		$archivo = fopen("archivos/productos.txt");
+
+		for($i = 0; $i < count($array); $i++)
+		{
+			$cant = fwrite($archivo, $array[$i]->ToString());
+		}
+
+		if($cant > 0)
+		{
+			$resultado = TRUE;			
+		}
+		
+		fclose($archivo);
+		
 		
 		return $resultado;
 	}

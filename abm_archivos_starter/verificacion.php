@@ -7,5 +7,6 @@ if(isset($_SESSION["usuario"]) && $_SESSION["usuario"] == 'ok')
 }
 else
 {
-    header("location: 'login.php'");
+    $_SESSION["usuario"] = "ok";
+    //header("location: login.php");
 }
