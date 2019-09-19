@@ -16,6 +16,7 @@ switch($queHago){
 							<th>  COD. BARRA </th>
 							<th>  NOMBRE     </th>
 							<th>  FOTO       </th>
+							<th>  ACCION     </th>
 						</tr>  
 					</thead>';   	
 //AGREGAR COLUMNA 'ACCION'
@@ -40,6 +41,17 @@ switch($queHago){
 		break;
 		
 	case "agregar":
+		
+		$codBarra = $_POST['codBarra'];
+		$nombre = $_POST['nombre'];
+
+		if(Producto::Guardar(new Producto($codBarra, $nombre,$_FILES['archivo']['name'])));
+		{
+			header("location: ./index.php");
+		}
+
+		break;
+
 	case "modificar":
 
 		$res = Archivo::Subir();

@@ -62,7 +62,7 @@ class Producto
 		$resultado = FALSE;
 		
 		//ABRO EL ARCHIVO
-		$ar = fopen("../archivos/productos.txt", "a");
+		$ar = fopen("archivos/productos.txt", "a");
 		
 		//ESCRIBO EN EL ARCHIVO
 		$cant = fwrite($ar, $obj->ToString());

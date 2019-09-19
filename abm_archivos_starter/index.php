@@ -14,7 +14,7 @@ $tituloVentana = "PRODUCTOS - con archivos y AJAX -";
 	<link rel="stylesheet" type="text/css" href="estilo.css">
 
 	<!-- incluir archivos javascript aquí -->
-	<script src="ajax.js"></script>
+	<script type="text/javascript" src="ajax.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -28,14 +28,14 @@ $tituloVentana = "PRODUCTOS - con archivos y AJAX -";
 					<tr>
 						<td width="50%">
 							<div id="divFrm" style="height:350px;overflow:auto;margin-top:20px">
-								<form id="frm" enctype="multipart/form-data" >
+							<form action="administracion.php" method="POST">
 									<input type="text" name="codBarra" id="codBarra" placeholder="Ingrese c&oacute;digo de barras" />
 									<input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre" />
-									<input type="file" name="archivo" id="archivo" /> 
+									<input type="file" name="archivo"/>
+									<input type="hidden" id="hdnQueHago" name="queHago" value="agregar"/>
+									<input type="submit" class="MiBotonUTN" value="Guardar"/>
 									
-									<input type="button" class="MiBotonUTN" onclick="Main.AgregarProducto()" value="Guardar"  />
-									<input type="hidden" id="hdnQueHago" name="queHago" value="agregar" />
-								</form>
+							</form>
 							</div>
 						</td>
 						<td rowspan="2">

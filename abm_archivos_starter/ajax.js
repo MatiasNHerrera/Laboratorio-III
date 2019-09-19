@@ -12,6 +12,7 @@ function Mostrar() {
 function Validar() {
     var http = new XMLHttpRequest();
     var retorno = false;
+    http.open("POST", "verificacion.php", true);
     var respuesta = http.responseText;
     if (respuesta = "ok") {
         retorno = true;
@@ -23,3 +24,19 @@ window.onload = function () {
         Mostrar();
     }
 };
+var Main = /** @class */ (function () {
+    function Main() {
+    }
+    Main.AgregarProducto = function () {
+        var http = new XMLHttpRequest();
+        http.open("POST", "administracion.php", true);
+        http.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        http.send("queHago=agregar");
+        http.onreadystatechange = function () {
+            if (http.status == 200 && http.readyState == 4) {
+                alert(http.responseText);
+            }
+        };
+    };
+    return Main;
+}());
