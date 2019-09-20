@@ -26,7 +26,7 @@ function Validar() : boolean
     
     var respuesta = http.responseText;
     
-    if(respuesta = "ok")
+    if(respuesta == "ok" && respuesta != null)
     {
         retorno = true;
     }

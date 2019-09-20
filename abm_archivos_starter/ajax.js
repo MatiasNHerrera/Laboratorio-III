@@ -14,7 +14,7 @@ function Validar() {
     var retorno = false;
     http.open("POST", "verificacion.php", true);
     var respuesta = http.responseText;
-    if (respuesta = "ok") {
+    if (respuesta == "ok" && respuesta != null) {
         retorno = true;
     }
     return retorno;
