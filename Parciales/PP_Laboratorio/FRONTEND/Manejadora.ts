@@ -566,7 +566,83 @@ namespace PrimerParcial
                 $("#divTabla").html(" ");
             }
         }
+        
+        public static AdministrarValidaciones()
+        {
+            let todoOk:boolean = false;
+            let todosLosCamposCompletos:boolean = true;
+            let numeroValido:boolean = false;
+            let tipoValido:boolean = false;
+            let ids:string[] = ["tamaño", "edad", "precio", "nombre", "raza"];
+            let tipos:string[] = ["salchicha", "chihuahua", "pitbull", "caniche", "ovejero", "Salchicha", "Perro", "Ovejero", "Boxer", "Caniche toy", "Chihuahua"];
+            for (let index = 0; index < ids.length; index++) 
+            {
+                if(this.ValidarCamposVacios(ids[index]))
+                {
+                    (<HTMLSpanElement>(<HTMLSpanElement>document.getElementById(ids[index])).nextElementSibling).style.display="none";
+                }
+                else
+                {
+                    todosLosCamposCompletos = false;
+                    (<HTMLSpanElement>(<HTMLSpanElement>document.getElementById(ids[index])).nextElementSibling).style.display="inline";
+                }               
+            }
+            numeroValido = this.ValidadEdad(parseInt((<HTMLInputElement>document.getElementById("edad")).value));
+            tipoValido = this.ValidarRaza((<HTMLInputElement>document.getElementById("raza")).value, tipos);
+            if(!numeroValido)
+            {
+                (<HTMLSpanElement>(<HTMLSpanElement>document.getElementById("edad")).nextElementSibling).style.display="inline";
+            }
+            if(!tipoValido)
+            {
+                (<HTMLSpanElement>(<HTMLSpanElement>document.getElementById("raza")).nextElementSibling).style.display="inline";
+            }
+            if(todosLosCamposCompletos && numeroValido && tipoValido)
+            {
+                todoOk = true;
+            }
+            return todoOk;
+        }
 
+        public static ValidarCamposVacios(cadena : string) : boolean
+        {
+            let retorno : boolean = false;
+
+            if(cadena != null)
+            {
+                retorno = true;
+            }
+
+            return retorno;
+        }
+
+        public static ValidarRaza(validacion : string, campos : string[]) : boolean
+        {
+            let retorno = true
+
+            for(let datos of campos)
+            {
+                if(validacion != datos)
+                {
+                    retorno = false;
+                    break;
+                }
+            }
+
+            return retorno;
+        }
+
+        public static ValidadEdad(edad : number) : boolean 
+        {
+            let retorno : boolean = false;
+
+            if(edad >=0 && edad < 18)
+            {
+                retorno = true;
+            }
+
+            return retorno;
+        }
 
     }
 
