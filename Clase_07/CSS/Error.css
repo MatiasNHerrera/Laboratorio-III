@@ -1,0 +1,7 @@
+div.error
+{
+    color : red;
+    font-style: oblique;
+    font-size: 50px;
+    background-color: black;
+}
