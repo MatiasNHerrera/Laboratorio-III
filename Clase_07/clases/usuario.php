@@ -67,10 +67,7 @@ class Usuario
         $consulta->bindValue(':correo', $this->correo);    
         $consulta->bindValue(':foto', Usuario::SubirFoto());
 
-        if(!Usuario::validarBD($this->apellido, $this->clave))
-        {
-            $validacion = $consulta->execute(); 
-        }
+        $validacion = $consulta->execute(); 
         
         return $validacion;
 
@@ -227,7 +224,7 @@ class Usuario
         return $response->withJson($objDelaRespuesta, 200);		
    }
 
-   public function AgregarUsu($request, $response, $args)
+   public function AgregarUsu($request, $response)
    {
         $ArrayDeParametros = $request->getParsedBody(); //OBTENGO LOS DATOS PASADOS POR POSTMAN EN ARRAY DINAMICO
 
@@ -235,33 +232,43 @@ class Usuario
         $destino="./fotos/";
         $nombreAnterior=$archivos['foto']->getClientFilename(); //OBTENGO EL NOMBRE DEL ARCHIVO CON CLAVE VALOR
         $extension= explode(".", $nombreAnterior); //OBTENGO EXTENSION
-        $path = $nombreAnterior. ".".date("d-m-y") . "." . $extension[1];
-        $destino .= $nombreAnterior. ".".date("d-m-y") . "." . $extension[1];
+        $path = date("d-m-y") . "." . $extension[1];
+        $destino .= $path;
 
+        $datos = json_decode($ArrayDeParametros["usuario"]);
         $Usuario = new Usuario();
-        $Usuario->id=$ArrayDeParametros['id'];
-        $Usuario->nombre=$ArrayDeParametros['nombre'];
-        $Usuario->apellido=$ArrayDeParametros['apellido'];
-        $Usuario->clave=$ArrayDeParametros['clave'];
-        $Usuario->perfil=$ArrayDeParametros['perfil'];
-        $Usuario->estado=$ArrayDeParametros['estado'];
-        $Usuario->correo=$ArrayDeParametros['correo'];
+
+        $Usuario->nombre= $datos->nombre;
+        $Usuario->apellido= $datos->apellido;
+        $Usuario->clave= $datos->clave;
+        $Usuario->perfil= $datos->perfil;
+        $Usuario->correo= $datos->correo;
         $Usuario->foto = $path;
 
 
         $objDelaRespuesta= new stdclass();
+        $retorno = "";
 
-        $resultado = $Usuario->InsertarUsuario();
         $archivos['foto']->moveTo($destino);
 
-        if($resultado)
+        $respuesta = $Usuario->InsertarUsuario();
+
+        if($respuesta)
         {
-            echo "Se ha podido agregar";
+            $objDelaRespuesta->exito = true;
+            $objDelaRespuesta->mensaje = "se ha podido agregar";
+            $objDelaRespuesta->user = $Usuario;
+            $retorno = $response->withJson($objDelaRespuesta, 200);
         }
         else
         {
-            echo "No se ha podido agregar";
+            $objDelaRespuesta->exito = false;
+            $objDelaRespuesta->mensaje = "no se ha podido agregar";
+            $retorno = $response->withJson($objDelaRespuesta, 200);
         }
+
+        return $retorno;
+        
    }
 
 }

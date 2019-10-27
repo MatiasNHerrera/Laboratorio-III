@@ -25,7 +25,7 @@ function EnviarDatos() {
 }
 function Registrar() {
     var http = new XMLHttpRequest();
-    http.open("POST", "index.php");
+    http.open("POST", "http://localhost/Clase_07/Validacion/Agregar");
     http.setRequestHeader("enctype", "multipart/form-data");
     var form = new FormData();
     var nombre = document.getElementById("nombre").value;
@@ -41,7 +41,17 @@ function Registrar() {
     http.send(form);
     http.onreadystatechange = function () {
         if (http.status == 200 && http.readyState == 4) {
-            alert(http.responseText);
+            var respuesta = JSON.parse(http.responseText);
+            if (respuesta.exito) {
+                $("#divMensaje").removeClass("error");
+                $("#divMensaje").addClass("valido");
+                $("#divMensaje").html(respuesta.mensaje + "\n" + JSON.stringify(respuesta.user));
+            }
+            else {
+                $("#divMensaje").removeClass("valido");
+                $("#divMensaje").addClass("error");
+                $("#divMensaje").html(respuesta.mensaje + "\n" + JSON.stringify(respuesta.user));
+            }
         }
     };
 }

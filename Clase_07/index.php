@@ -59,6 +59,8 @@ $app->group("/Validacion",function(){
 
     });
 
+    $this->post("/Agregar", \Usuario::class . ":AgregarUsu");
+
 });
 
 
