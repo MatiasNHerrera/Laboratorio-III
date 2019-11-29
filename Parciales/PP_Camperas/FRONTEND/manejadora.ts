@@ -30,6 +30,7 @@ namespace Test{
             formFoto.append("codigo", pathFoto);
             formFoto.append("caso", "subirFoto");
             formFoto.append("foto", foto.files[0]);
+
             let ajaxFoto = $.ajax({
              type: "POST",
              url: "./BACKEND/administrar.php",
@@ -39,6 +40,7 @@ namespace Test{
              data: formFoto,
              dataType: "JSON"
             })
+            
             ajaxFoto.done(function(response){
                 if(response.Ok){
                     alert("Se guardo la foto");
